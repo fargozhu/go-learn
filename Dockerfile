@@ -1,8 +1,7 @@
-FROM iron/go:dev
+FROM iron/go
 WORKDIR /app
 
-RUN mkdir /app
-ADD . /app
-
-RUN go build -o test .
-CMD ["/app/test"]
+ENV SRC_DIR=/go/src/github.com/fargozhu/go-learn
+ADD . $SRC_DIR
+RUN cd $SRC_DIR; go build -o test; cp test /app/
+ENTRYPOINT [ "./test" ]
